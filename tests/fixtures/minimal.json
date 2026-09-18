@@ -1,0 +1,24 @@
+{
+  "product": {
+    "asin": "B0TEST0001",
+    "marketplace": "US",
+    "title": "Synthetic Test Product",
+    "listing_url": "https://www.amazon.com/dp/B0TEST0001"
+  },
+  "reviews": [
+    {
+      "review_id": "R-SYN-1",
+      "rating": 5,
+      "title": "Works well",
+      "text": "The fit is solid and setup was quick.",
+      "author": "Synthetic User",
+      "date": "2026-01-02",
+      "date_raw": "2026-01-02",
+      "verified_purchase": true,
+      "helpful_votes": 3,
+      "summary_zh": "安装快且稳固",
+      "primary_issue": "安装便利",
+      "review_url": "https://www.amazon.com/gp/customer-reviews/R-SYN-1"
+    }
+  ]
+}

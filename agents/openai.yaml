@@ -1,0 +1,4 @@
+interface:
+  display_name: "Amazon 评论采集与 VOC 洞察"
+  short_description: "从 ASIN 或评论文件采集、去重、归因并交付 Excel 与离线 HTML 洞察报告"
+  default_prompt: "使用 $amazon-review-scraper 采集或读取这些 Amazon 评论，统一去重并保留原声，导出 Excel；同时生成中文 HTML 评论分析、需求主题、竞品弱点和可验证的产品改进建议。"
