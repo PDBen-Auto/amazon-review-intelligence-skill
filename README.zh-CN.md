@@ -8,7 +8,7 @@
 
 </div>
 
-![Amazon 评论洞察输出示例](assets/review-insight-demo.svg)
+![Amazon 评论洞察合成案例：证据数量、问题优先级与产品决策](assets/github-social-preview.png)
 
 ## 一条命令安装
 

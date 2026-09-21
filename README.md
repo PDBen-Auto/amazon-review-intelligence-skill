@@ -15,7 +15,7 @@
 
 </div>
 
-![Amazon review intelligence report showing written-review scope, issue priorities, customer voice, and product actions](assets/review-insight-demo.svg)
+![Amazon review intelligence synthetic case showing evidence counts, issue priorities, and product decisions](assets/github-social-preview.png)
 
 ## Install in one command
 

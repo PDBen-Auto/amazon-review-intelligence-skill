@@ -144,6 +144,7 @@ def render_html(payload: dict) -> str:
   <title>Amazon Review Intelligence Demo | Synthetic Product Case</title>
   <meta name="description" content="{description}">
   <meta name="robots" content="index,follow">
+  <link rel="icon" href="data:,">
   <link rel="canonical" href="https://pdben-auto.github.io/amazon-review-intelligence-skill/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Amazon Review Intelligence Skill">
