@@ -8,7 +8,7 @@
 [![Downloads](https://img.shields.io/github/downloads/PDBen-Auto/amazon-review-intelligence-skill/total?style=flat-square)](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases)
 [![Validation](https://img.shields.io/github/actions/workflow/status/PDBen-Auto/amazon-review-intelligence-skill/validate.yml?branch=main&style=flat-square&label=validation)](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/actions/workflows/validate.yml)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square)](https://www.python.org/)
-[![skills.sh](https://skills.sh/b/PDBen-Auto/amazon-review-intelligence-skill)](https://skills.sh/PDBen-Auto/amazon-review-intelligence-skill)
+[![skills.sh](https://skills.sh/b/PDBen-Auto/amazon-review-intelligence-skill)](https://skills.sh/PDBen-Auto/amazon-review-intelligence-skill/amazon-review-scraper)
 [![License](https://img.shields.io/badge/license-source--available-59636e?style=flat-square)](LICENSE)
 
 [中文说明](README.zh-CN.md) · [Live demo](https://pdben-auto.github.io/amazon-review-intelligence-skill/) · [Download ZIP](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases/latest/download/amazon-review-intelligence-skill.zip)
