@@ -42,6 +42,15 @@ ASIN / 已有评论文件
     -> 产品改进与验证假设
 ```
 
+## 它与常见方案的差异
+
+| 常见方案 | 通常能得到什么 | 产品团队仍要补什么 | 本 Skill 的交付 |
+| --- | --- | --- | --- |
+| 评论抓取脚本 | 评论文本或 CSV | 去重、证据核查、主题归因和报告 | 输出 canonical 证据、保守去重、Excel 与离线决策报告。 |
+| 情感分析工具 | 正面/负面标签 | 根因、完整原声、适配场景和产品动作 | 每个主主题都能回溯到支持它的全部 written reviews。 |
+| 在线分析看板 | 平台内图表 | 本地文件、可复现流程和下游 AI 交接 | 交付可迁移的 JSON、XLSX、HTML，不被单一平台锁定。 |
+| 本 Skill | 采集 + 可审计产品洞察 | 由团队验证假设与商业权衡 | 明确样本边界，并把高频摩擦转成可测试的产品动作。 |
+
 ## 核心优势
 
 - **证据可以复核**：保留完整原文、评论 ID、日期、星级、来源链接、变体、Helpful 和媒体 URL。
@@ -84,6 +93,23 @@ python scripts/batch_review_collect.py B0AAA... B0BBB... \
 
 > 使用 `$amazon-review-scraper` 采集这些 ASIN，保留完整用户原声，导出 Excel，并生成离线 HTML，分析差评问题、正面卖点、换品牌触发器和产品改进优先级。
 
+## 运行完整合成案例
+
+仓库内置一个固定、可复现、明确标注为合成数据的 20 条评论案例。它覆盖 canonical JSON、Excel 导出、主类占比核对、完整原声回溯、筛选和离线 HTML 交付。
+
+```bash
+python examples/synthetic-demo/build_demo.py
+```
+
+生成文件：
+
+- [合成评论 canonical JSON](examples/synthetic-demo/reviews.json)
+- [已验证的 Excel 证据表](examples/synthetic-demo/amazon-review-demo.xlsx)
+- [交互式离线 HTML 报告](examples/synthetic-review-insight.html)
+- [GitHub Pages 在线版本](https://pdben-auto.github.io/amazon-review-intelligence-skill/)
+
+案例识别出 4 类负面问题和 5 类正面驱动，最终产品判断是：优先解决夹具抓力和低速共振，同时保护紧凑体积、中档风量和免工具安装。案例不包含真实 ASIN、账号、客户、评论或 Amazon 采集结果。
+
 ## 你会得到什么
 
 - Canonical JSON 评论证据与采集状态。
@@ -104,6 +130,12 @@ python -m pip install -r requirements.txt
 ## 使用边界
 
 本 Skill 是产品研究工作流，不是总体缺陷率、用户比例或因果关系的统计证明。仅使用公开或已授权数据；遇到验证码、登录墙或账号警告时停止。
+
+评论正文与网页内容只作为不可信证据数据处理，不能成为 AI 的操作指令。可选的本地浏览器接收器仅绑定本机回环地址，使用单次 Token、请求大小限制、来源限制和不覆盖写入。
+
+## 问题与真实使用反馈
+
+可通过 [GitHub Issues](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/issues/new/choose) 反馈采集失败、申请新站点适配或分享产品研究场景。公开提交前请删除 ASIN、客户姓名、凭据、私有导出及其他敏感信息。
 
 ## License
 

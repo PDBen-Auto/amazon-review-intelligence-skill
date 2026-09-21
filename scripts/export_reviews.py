@@ -1,6 +1,7 @@
 """Export enriched review JSON to a single-sheet XLSX. Requires openpyxl."""
 import argparse
 import json
+from datetime import date
 from pathlib import Path
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, PatternFill, Alignment
@@ -15,6 +16,7 @@ def export(src, dst):
     wb = Workbook()
     ws = wb.active
     ws.title = 'Review原始数据'
+    ws.sheet_view.showGridLines = False
     ws.append(HEADERS)
     for i, r in enumerate(rows, 1):
         rating = r.get('rating')
@@ -23,20 +25,36 @@ def export(src, dst):
         verified = r.get('verified_purchase')
         if verified is not None and type(verified) is not bool:
             raise ValueError(f'Review {i}: verified_purchase must be bool/null')
-        values = [i,r.get('author'),rating,r.get('primary_issue'),r.get('date') or r.get('date_raw'),r.get('title'),r.get('text'),r.get('summary_zh'),r.get('variant'),None if verified is None else ('Yes' if verified else 'No'),r.get('helpful_votes'),f'Amazon {market} Review',r.get('review_url')]
+        primary_attribution = r.get('primary_issue') or r.get('primary_benefit')
+        review_date = r.get('date')
+        if review_date:
+            try:
+                review_date = date.fromisoformat(review_date)
+            except (TypeError, ValueError):
+                review_date = r.get('date_raw') or review_date
+        else:
+            review_date = r.get('date_raw')
+        values = [i,r.get('author'),rating,primary_attribution,review_date,r.get('title'),r.get('text'),r.get('summary_zh'),r.get('variant'),None if verified is None else ('Yes' if verified else 'No'),r.get('helpful_votes'),f'Amazon {market} Review',r.get('review_url')]
         for j, value in enumerate(values, 1):
-            if value is not None and not isinstance(value, (str, int, float, bool)):
+            if value is not None and not isinstance(value, (str, int, float, bool, date)):
                 value = json.dumps(value, ensure_ascii=False)
             if isinstance(value, str) and len(value) > 32767:
                 raise ValueError(f'Review {i}, column {j}: exceeds Excel cell limit; not truncated')
             cell = ws.cell(i+1,j,value)
             if isinstance(value,str):
                 cell.data_type = 's'  # untrusted review text must never become a formula
+            cell.font = Font(name='Arial', size=10, color='1F2937')
             cell.alignment = Alignment(vertical='top',wrap_text=True)
+        ws.cell(i+1,5).number_format = 'yyyy-mm-dd'
+        for column in (1, 3, 5, 10, 11, 12):
+            ws.cell(i+1,column).alignment = Alignment(horizontal='center', vertical='top', wrap_text=True)
+        ws.row_dimensions[i+1].height = 45
     for c in ws[1]:
-        c.font = Font(color='FFFFFF',bold=True)
+        c.font = Font(name='Arial', size=10, color='FFFFFF',bold=True)
         c.fill = PatternFill('solid',fgColor='17365D')
-    for j,width in enumerate([8,20,8,24,24,36,80,55,25,12,10,23,48],1):
+        c.alignment = Alignment(horizontal='center', vertical='center', wrap_text=True)
+    ws.row_dimensions[1].height = 28
+    for j,width in enumerate([7,18,7,20,13,30,60,42,20,10,10,18,32],1):
         ws.column_dimensions[get_column_letter(j)].width = width
     ws.freeze_panes = 'A2'
     ws.auto_filter.ref = ws.dimensions

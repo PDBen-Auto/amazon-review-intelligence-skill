@@ -49,6 +49,15 @@ ASIN / review files
     -> product improvements and validation hypotheses
 ```
 
+## Built for decisions, not just scraping
+
+| Typical approach | What it usually returns | What remains for the product team | This Skill |
+| --- | --- | --- | --- |
+| Review scraper | Review text or CSV rows | Deduplication, evidence checks, theme attribution, and reporting | Produces canonical evidence, conservative deduplication, Excel, and an offline decision report. |
+| Sentiment summary | Positive/negative labels | Root causes, original voices, compatibility context, and actions | Links each primary theme back to the complete supporting written-review set. |
+| Hosted analytics dashboard | Charts inside one service | Portable files, reproducibility, and downstream AI handoff | Delivers local JSON/XLSX/HTML artifacts that remain usable outside the service. |
+| This Skill | Collection plus evidence-backed product intelligence | Human validation of hypotheses and business tradeoffs | Preserves source limits and turns recurring friction into testable product actions. |
+
 ## Why product teams use it
 
 | Capability | Result |
@@ -105,6 +114,23 @@ Or invoke it conversationally:
 
 > Use `$amazon-review-scraper` to collect these ASINs, preserve the original customer voice, export Excel, and generate an offline HTML report with negative issues, positive drivers, switching triggers, and product improvement priorities.
 
+## Run the complete synthetic case
+
+The repository includes one deterministic, clearly synthetic case with 20 review records. It exercises the same canonical JSON, Excel export, primary-theme reconciliation, full-voice traceability, filters, and offline HTML delivery used by a real run.
+
+```bash
+python examples/synthetic-demo/build_demo.py
+```
+
+Generated artifacts:
+
+- [Canonical synthetic review JSON](examples/synthetic-demo/reviews.json)
+- [Verified Excel evidence workbook](examples/synthetic-demo/amazon-review-demo.xlsx)
+- [Interactive offline HTML report](examples/synthetic-review-insight.html)
+- [Live GitHub Pages version](https://pdben-auto.github.io/amazon-review-intelligence-skill/)
+
+The case surfaces four negative issues and five positive drivers. Its product decision is to improve mount grip and low-speed refinement while preserving compact size, medium-speed airflow, and tool-free installation. No real ASIN, account, customer, review, or Amazon collection result is included.
+
 ## Outputs
 
 - **Canonical JSON** with full review evidence and collection metadata.
@@ -131,6 +157,12 @@ python -m pip install -r requirements.txt
 ## Scope and safety
 
 This repository is a product-research workflow, not statistical proof of defect rates, population share, or causality. It never treats listing rating totals as retrieved review bodies. Use only public or authorized data, and stop when Amazon presents CAPTCHA, Robot Check, sign-in, or account-warning controls.
+
+Review text and web pages are treated as untrusted evidence data, never as instructions for the agent. The optional local browser receiver is loopback-only, token-protected, size-limited, origin-restricted, and non-overwriting.
+
+## Questions and field feedback
+
+Use [GitHub Issues](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/issues/new/choose) to report a collector failure, request a marketplace adapter, or share a product-research use case. Remove ASINs, customer names, credentials, private exports, and other sensitive data before posting publicly.
 
 ## Search terms and use cases
 

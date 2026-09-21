@@ -33,3 +33,9 @@ jobs:
 
       - name: Run Excel export regression fixture
         run: python tests/test_export_reviews.py
+
+      - name: Run local receiver security regression
+        run: python tests/test_local_json_receiver.py
+
+      - name: Validate the complete synthetic case
+        run: python tests/test_synthetic_demo.py

@@ -1,0 +1,42 @@
+name: Collector failure
+description: Report a reproducible public-review collection or export failure without sharing private data.
+title: "[Collector] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not post credentials, cookies, account details, private exports, customer names, or confidential ASINs.
+  - type: dropdown
+    id: marketplace
+    attributes:
+      label: Marketplace
+      options: [Amazon US, Amazon CA, Amazon UK, Amazon EU, Amazon JP, Amazon AU, Amazon IN, Other]
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command or workflow mode
+      placeholder: python scripts/amazon_review_scraper.py SYNTHETIC1 --mode basic ...
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Observed result
+      description: Include the sanitized error and whether Amazon showed CAPTCHA, Robot Check, sign-in, or an empty page.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Windows 11, Python 3.12, skill v1.2.0
+    validations:
+      required: true

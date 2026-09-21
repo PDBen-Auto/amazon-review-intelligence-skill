@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the installation and demo guide
+    url: https://github.com/PDBen-Auto/amazon-review-intelligence-skill#readme
+    about: Check requirements, collection limits, and the complete synthetic case before opening an issue.

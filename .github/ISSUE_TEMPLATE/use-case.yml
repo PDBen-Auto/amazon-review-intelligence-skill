@@ -1,0 +1,36 @@
+name: Marketplace or product-research use case
+description: Propose an adapter, output, or product-decision workflow grounded in a real need.
+title: "[Use case] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Describe the workflow without posting credentials, customer data, private files, or confidential product identifiers.
+  - type: textarea
+    id: decision
+    attributes:
+      label: Product decision to support
+      description: What decision should the review evidence help a product, research, or ecommerce team make?
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Available inputs
+      placeholder: Public review URLs, sanitized JSON, CSV, XLSX, marketplace, date range
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Required output
+      placeholder: Evidence workbook, offline report, VOC themes, switching triggers, compatibility findings
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What observable result would make the use case complete?
+    validations:
+      required: true

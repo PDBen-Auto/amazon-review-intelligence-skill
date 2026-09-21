@@ -1,0 +1,51 @@
+name: Publish installable skill release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install and validate
+        run: |
+          python -m pip install -r requirements.txt
+          python -m compileall -q scripts tests examples/synthetic-demo
+          python tests/test_skill_structure.py
+          python tests/test_export_reviews.py
+          python tests/test_local_json_receiver.py
+          python tests/test_synthetic_demo.py
+
+      - name: Package installable skill
+        shell: bash
+        run: |
+          mkdir -p dist/amazon-review-scraper
+          cp -r SKILL.md agents references scripts requirements.txt LICENSE dist/amazon-review-scraper/
+          cd dist
+          zip -r amazon-review-intelligence-skill.zip amazon-review-scraper
+          sha256sum amazon-review-intelligence-skill.zip > amazon-review-intelligence-skill.zip.sha256
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${{ github.ref_name }}"
+          dist/amazon-review-intelligence-skill.zip
+          dist/amazon-review-intelligence-skill.zip.sha256
+          --repo "${{ github.repository }}"
+          --title "Amazon Review Intelligence Skill ${{ github.ref_name }}"
+          --generate-notes
