@@ -35,6 +35,8 @@ jobs:
         run: |
           mkdir -p dist/amazon-review-scraper
           cp -r SKILL.md agents references scripts requirements.txt LICENSE dist/amazon-review-scraper/
+          find dist -type d -name __pycache__ -prune -exec rm -rf {} +
+          find dist -type f -name '*.pyc' -delete
           cd dist
           zip -r amazon-review-intelligence-skill.zip amazon-review-scraper
           sha256sum amazon-review-intelligence-skill.zip > amazon-review-intelligence-skill.zip.sha256
