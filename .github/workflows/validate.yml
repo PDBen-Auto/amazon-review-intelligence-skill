@@ -39,3 +39,6 @@ jobs:
 
       - name: Validate the complete synthetic case
         run: python tests/test_synthetic_demo.py
+
+      - name: Smoke-test installable ZIP layout
+        run: python tests/test_install_smoke.py
