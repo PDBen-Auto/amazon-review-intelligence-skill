@@ -1,0 +1,9 @@
+{
+  "network_behavior": "none",
+  "origin_id": "73ec1f68-80b7-44d9-a47c-c0a4cb6d08ce",
+  "prompt_neutral": true,
+  "publisher_public_key_sha256": "d64d7ebc963fdaa86a44573bd226e8bb135d9d95818c5f39df88e0a45e886596",
+  "record_type": "skill-publisher-origin",
+  "schema_version": "1.0",
+  "skill_name": "amazon-review-scraper"
+}

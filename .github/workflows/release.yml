@@ -34,7 +34,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist/amazon-review-scraper
-          cp -r SKILL.md agents references scripts requirements.txt LICENSE dist/amazon-review-scraper/
+          cp -r SKILL.md agents references scripts requirements.txt LICENSE .well-known PUBLISHER_PUBLIC_KEY.pem PUBLIC_MANIFEST.sha256 RELEASE_PROVENANCE.json RELEASE_PROVENANCE.sig dist/amazon-review-scraper/
           find dist -type d -name __pycache__ -prune -exec rm -rf {} +
           find dist -type f -name '*.pyc' -delete
           cd dist

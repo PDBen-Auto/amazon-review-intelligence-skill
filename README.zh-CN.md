@@ -6,6 +6,8 @@
 
 [English](README.md) · [在线案例](https://pdben-auto.github.io/amazon-review-intelligence-skill/) · [下载可安装 ZIP](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases/latest/download/amazon-review-intelligence-skill.zip)
 
+这是 [PDBen-Auto 产品研究 Skill 集合](https://github.com/PDBen-Auto/amazon-product-decision-suite) 的评论/VOC 模块： [SellerSprite 品类 BI](https://github.com/PDBen-Auto/sellersprite-amazon-market-research-bi-skill) · [外观专利检索与设计规避](https://github.com/PDBen-Auto/design-patent-design-around-skill)
+
 </div>
 
 ![Amazon 评论洞察合成案例：证据数量、问题优先级与产品决策](assets/github-social-preview.png)

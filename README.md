@@ -13,6 +13,8 @@
 
 [中文说明](README.zh-CN.md) · [Live demo](https://pdben-auto.github.io/amazon-review-intelligence-skill/) · [Download ZIP](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases/latest/download/amazon-review-intelligence-skill.zip)
 
+Part of the [PDBen-Auto product research Skill collection](https://github.com/PDBen-Auto/amazon-product-decision-suite): [SellerSprite market research BI](https://github.com/PDBen-Auto/sellersprite-amazon-market-research-bi-skill) · [Design patent search and design-around](https://github.com/PDBen-Auto/design-patent-design-around-skill)
+
 </div>
 
 ![Amazon review intelligence synthetic case showing evidence counts, issue priorities, and product decisions](assets/github-social-preview.png)
