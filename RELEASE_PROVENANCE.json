@@ -1,10 +1,10 @@
 {
-  "created_at_utc": "2026-09-22T11:19:41Z",
-  "manifest_sha256": "138daa11d079127c8f0dac250389578d4d6f1cc271567c4443f52eb49fa86437",
+  "created_at_utc": "2026-09-22T11:31:23Z",
+  "manifest_sha256": "225fd055879003f3efb1efefb57a47a177246cbe5743e12f7ce21ddd0fb46866",
   "origin_id": "73ec1f68-80b7-44d9-a47c-c0a4cb6d08ce",
   "prompt_neutral": true,
   "publisher_public_key_sha256": "d64d7ebc963fdaa86a44573bd226e8bb135d9d95818c5f39df88e0a45e886596",
-  "release_version": "v1.2.3",
+  "release_version": "v1.2.4",
   "repository": "https://github.com/PDBen-Auto/amazon-review-intelligence-skill",
   "schema_version": "1.0",
   "scope": "public-skill-package",
