@@ -1,13 +1,11 @@
 {
-  "created_at_utc": "2026-09-22T03:42:42Z",
-  "manifest_sha256": "b4c07a038919df887ab4a61fb25dec7ca643c9b01fe45b40a90c37d4f4c40c21",
+  "created_at_utc": "2026-09-22T04:24:49Z",
+  "manifest_sha256": "6d8ad38ea5c1fe9846a1ce23d6be535106cb89aec9c41b4622f3b8df8b449598",
   "origin_id": "73ec1f68-80b7-44d9-a47c-c0a4cb6d08ce",
-  "prompt_neutral": true,
   "publisher_public_key_sha256": "d64d7ebc963fdaa86a44573bd226e8bb135d9d95818c5f39df88e0a45e886596",
   "release_version": "v1.2.2",
   "repository": "https://github.com/PDBen-Auto/amazon-review-intelligence-skill",
   "schema_version": "1.0",
-  "scope": "public-skill-package",
   "signature_alg": "ed25519",
   "skill_name": "amazon-review-scraper"
 }
