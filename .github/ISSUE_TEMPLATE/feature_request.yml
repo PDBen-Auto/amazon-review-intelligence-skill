@@ -1,0 +1,22 @@
+name: Feature request
+description: Propose a public evidence, reporting, or product-research improvement.
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Describe the workflow with public or synthetic data only. Requests for bypasses, hidden tracking, or private methods will be closed.
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What product or research decision should this support?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: What observable output would make the request complete?
+    validations:
+      required: true

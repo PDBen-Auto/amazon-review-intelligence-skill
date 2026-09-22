@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: "Amazon Review Intelligence Skill"
+message: "If this Skill supports your research, please cite the repository and release version."
+type: software
+authors:
+  - family-names: "PDBen-Auto"
+    given-names: "Publisher"
+repository-code: "https://github.com/PDBen-Auto/amazon-review-intelligence-skill"
+url: "https://pdben-auto.github.io/amazon-review-intelligence-skill/"
+license: "LicenseRef-Source-Available"
+version: "1.2.2"
+date-released: "2026-09-22"
+keywords:
+  - Amazon reviews
+  - voice of customer
+  - product research
+  - Agent Skills
