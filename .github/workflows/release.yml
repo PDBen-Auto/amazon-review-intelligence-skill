@@ -35,9 +35,20 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist/amazon-review-scraper
-          cp -r SKILL.md agents references scripts requirements.txt LICENSE .well-known PUBLISHER_PUBLIC_KEY.pem PUBLIC_MANIFEST.sha256 RELEASE_PROVENANCE.json RELEASE_PROVENANCE.sig dist/amazon-review-scraper/
+          git archive --format=tar "${GITHUB_SHA}" | tar -x -C dist/amazon-review-scraper
           find dist -type d -name __pycache__ -prune -exec rm -rf {} +
           find dist -type f -name '*.pyc' -delete
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          root = Path("dist/amazon-review-scraper")
+          manifest = (root / "PUBLIC_MANIFEST.sha256").read_text(encoding="utf-8")
+          payload = json.loads((root / "RELEASE_PROVENANCE.json").read_text(encoding="utf-8"))
+          assert hashlib.sha256(manifest.encode()).hexdigest() == payload["manifest_sha256"]
+          for line in manifest.splitlines():
+              digest, relative = line.split("  ", 1)
+              assert hashlib.sha256((root / relative).read_bytes()).hexdigest() == digest, relative
+          PY
           cd dist
           zip -r amazon-review-intelligence-skill.zip amazon-review-scraper
           sha256sum amazon-review-intelligence-skill.zip > amazon-review-intelligence-skill.zip.sha256
