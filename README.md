@@ -21,6 +21,10 @@ Part of the [PDBen-Auto product research Skill collection](https://github.com/PD
 
 ![Amazon review intelligence synthetic case showing evidence counts, issue priorities, and product decisions](assets/github-social-preview.png)
 
+## Start here if you are evaluating a product
+
+Need more than review text? Use the [Amazon Product Research Agent Skills suite](https://github.com/PDBen-Auto/amazon-product-research-agent-skills) to route market sizing, review intelligence, design-risk, supplier, and Go/No-Go work from one entry point. This repository remains the focused review/VOC module.
+
 ## Install in one command
 
 ```bash
