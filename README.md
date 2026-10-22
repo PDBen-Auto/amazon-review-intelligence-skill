@@ -25,6 +25,8 @@ Part of the [PDBen-Auto product research Skill collection](https://github.com/PD
 
 Need more than review text? Use the [Amazon Product Research Agent Skills suite](https://github.com/PDBen-Auto/amazon-product-research-agent-skills) to route market sizing, review intelligence, design-risk, supplier, and Go/No-Go work from one entry point. This repository remains the focused review/VOC module.
 
+Before committing to inventory, test whether a proposed fix can survive returns, advertising, and first-order cash needs. The suite's [worked unit economics case](https://pdben-auto.github.io/amazon-product-research-agent-skills/examples/magnetic-car-phone-mount/unit-economics-quick-case.html) shows the calculation and its input JSON. It uses a separate synthetic product, not the review records in this repository. Install the focused calculator with `npx skills add PDBen-Auto/amazon-product-research-agent-skills --skill amazon-unit-economics-cashflow`.
+
 ## Install in one command
 
 ```bash

@@ -12,6 +12,8 @@
 
 ![Amazon 评论洞察合成案例：证据数量、问题优先级与产品决策](assets/github-social-preview.png)
 
+评论洞察之后，还需要验证改良方案是否承担得起退货、广告和首单现金需求。[单位经济计算案例](https://pdben-auto.github.io/amazon-product-research-agent-skills/examples/magnetic-car-phone-mount/unit-economics-quick-case.html)公开了输入 JSON 和可复算结果；它使用另一件合成产品，不是本仓库评论案例的下游实测数据。单独安装计算 Skill：`npx skills add PDBen-Auto/amazon-product-research-agent-skills --skill amazon-unit-economics-cashflow`。
+
 ## 一条命令安装
 
 ```bash
