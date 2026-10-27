@@ -2,7 +2,7 @@
 
 # Amazon 评论采集与产品洞察 Skill
 
-**无需登录 Amazon 账号的公开评论采集 + VOC 分析工作流，把 written reviews 变成可追溯的产品决策证据。**
+**通过匹配当前公开商品页，在无需登录 Amazon 账号的条件下采集 written reviews，并把评论变成可追溯的产品决策证据。**
 
 [English](README.md) · [在线案例](https://pdben-auto.github.io/amazon-review-intelligence-skill/) · [下载可安装 ZIP](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases/latest/download/amazon-review-intelligence-skill.zip)
 
@@ -29,7 +29,7 @@ git clone https://github.com/PDBen-Auto/amazon-review-intelligence-skill.git ~/.
 python -m pip install -r ~/.codex/skills/amazon-review-scraper/requirements.txt
 ```
 
-公开评论的主采集路径不要求 Amazon 账号、Cookie 或已登录浏览器。
+Woot 公开评论采集路径不要求 Amazon 账号、Cookie 或已登录浏览器，但只适用于当前 Woot 商品页可核对出目标 ASIN 和 offer ID 的商品。其他 ASIN 需使用获准连接器或浏览器回退。
 
 ## 它解决什么问题
 
@@ -71,26 +71,34 @@ ASIN / 已有评论文件
 | 模式 | 策略 |
 | --- | --- |
 | `basic` | 快速验证是否可获取并返回少量样本。 |
-| `full` | 5 个星级分组，每组最多 12 页请求。 |
-| `max` | 5 个星级 × 4 个排序组合 × 每组合最多 12 页，最多约 240 个分页请求。 |
+| `full` | 5 个星级分组按 Top 排序，每组最多 12 页，最多 60 次请求。 |
+| `max` | 5 个星级 × Top/Most Recent 两种排序 × 每组合最多 12 页，最多 120 次请求。 |
 | 浏览器回退 | 通常检查最近或可见评论页，策略上限约 10 页。 |
 
-实际唯一评论数取决于站点返回、排序重叠、重复 ID 和访问限制。这里统计的是可获取的 written reviews，不等于 Listing 显示的 ratings 总数，也不承诺覆盖全部历史评论。
+实际唯一评论数取决于 Woot 是否有完全匹配的在售页面、接口返回、排序重叠、重复 ID 和访问限制。这里统计的是可获取的 written reviews，不等于 Listing 显示的 ratings 总数，也不承诺覆盖全部历史评论。未找到 Woot 商品或接口失败，不等于 Amazon 没有评论。
 
 ## 快速使用
 
-单 ASIN：
+单 ASIN：先核对 Woot 商品页中的 ASIN 与目标完全一致。
 
 ```bash
-python scripts/amazon_review_scraper.py B0XXXXXXXX --mode max \
+python scripts/amazon_review_scraper.py B0XXXXXXXX \
+  --woot-offer-url https://home.woot.com/offers/example-product --mode full \
   --output output/B0XXXXXXXX/reviews.json
 ```
 
-批量 ASIN：
+批量 ASIN：`woot_offer_map.json` 要记录每个 ASIN 与已核实的当前 Woot 商品 URL。
+
+```json
+{"B0AAA00001":"https://home.woot.com/offers/example-product"}
+```
+
+运行前将示例值替换成真实且完全匹配的 ASIN 与当前商品页；这个映射文件不会自动发现 ASIN。
 
 ```bash
-python scripts/batch_review_collect.py B0AAA... B0BBB... \
-  --output-dir output/batch --mode max --resume
+python scripts/batch_review_collect.py B0AAA00001 B0BBB00002 \
+  --woot-offer-map woot_offer_map.json \
+  --output-dir output/batch --mode full --resume
 ```
 
 也可以直接对 AI 说：

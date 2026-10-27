@@ -219,6 +219,10 @@ def main() -> None:
 
     input_dir = Path(args.input_dir).resolve()
     output = Path(args.output).resolve() if args.output else input_dir / "ASIN_reviews_ALL.xlsx"
+    status_path = input_dir / "collection_status.json"
+    collection_status = {}
+    if status_path.exists():
+        collection_status = {row["ASIN"].upper(): row for row in read_json(status_path) if row.get("ASIN")}
     asin_dirs = sorted(path for path in input_dir.iterdir() if path.is_dir() and ASIN_RE.fullmatch(path.name.upper()))
     all_rows = []
     grouped = {}
@@ -252,11 +256,17 @@ def main() -> None:
         asin = asin_dir.name.upper()
         rows = grouped[asin]
         stars = Counter(row["rating"] for row in rows)
+        run_status = collection_status.get(asin, {}).get("status")
+        display_status = "OK" if rows else "无评论结果"
+        if run_status and run_status not in ("done", "existing"):
+            display_status = f"旧采集数据; 本次{run_status}" if rows else f"本次{run_status}"
+        elif run_status == "existing":
+            display_status = "复用已核验采集"
         summary.append({
             "ASIN": asin, "评论数": len(rows), "5星": stars[5], "4星": stars[4], "3星": stars[3],
             "2星": stars[2], "1星": stars[1], "有图评论": sum(bool(row["image_urls"]) for row in rows),
             "有视频评论": sum(bool(row["video_urls"]) for row in rows), "图片嵌入数": sum(len(row["image_paths"]) for row in rows),
-            "状态": "OK" if rows else "无评论结果",
+            "状态": display_status,
         })
 
     workbook = Workbook()

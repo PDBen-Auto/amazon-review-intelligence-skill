@@ -2,7 +2,7 @@
 
 # Amazon Review Intelligence Skill
 
-**Amazon review scraper + VOC analysis for AI agents. Collect written reviews without an Amazon login, preserve evidence, and turn customer feedback into product decisions.**
+**Amazon review scraper + VOC analysis for AI agents. Collect written reviews from matched public offers without an Amazon login, preserve evidence, and turn customer feedback into product decisions.**
 
 [![Release](https://img.shields.io/github/v/release/PDBen-Auto/amazon-review-intelligence-skill?style=flat-square)](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/PDBen-Auto/amazon-review-intelligence-skill/total?style=flat-square)](https://github.com/PDBen-Auto/amazon-review-intelligence-skill/releases)
@@ -42,7 +42,7 @@ git clone https://github.com/PDBen-Auto/amazon-review-intelligence-skill.git ~/.
 python -m pip install -r ~/.codex/skills/amazon-review-scraper/requirements.txt
 ```
 
-The primary public-review collection path does **not** require an Amazon account, cookies, or a logged-in browser session.
+The Woot public-review path does **not** require an Amazon account, cookies, or a logged-in browser session. It works only when a current Woot offer page exposes the exact target ASIN and its offer ID; other ASINs require an authorized connector or browser fallback.
 
 ## What problem it solves
 
@@ -86,26 +86,34 @@ These are request ceilings per ASIN, not a promise of a fixed number of unique r
 | Mode | Collection strategy |
 | --- | --- |
 | `basic` | Fast availability and sample check. |
-| `full` | Five star groups, up to 12 page requests per group. |
-| `max` | Five star groups × four sort combinations × up to 12 pages: approximately 240 page requests. |
+| `full` | Five star groups in Top order, up to 12 page requests per group (60 requests maximum). |
+| `max` | Five star groups × Top and Most Recent × up to 12 pages (120 requests maximum). |
 | Browser fallback | Usually checks recent or visible pages, with a strategy ceiling of about 10 pages. |
 
-The final count depends on marketplace availability, overlapping sort results, duplicate review IDs, and Amazon access behavior. The output covers retrievable **written reviews**, not every rating shown on the listing.
+The final count depends on whether the exact ASIN has a Woot offer, source availability, overlapping sort results, duplicate review IDs, and Amazon access behavior. The output covers retrievable **written reviews**, not every rating shown on the listing. A missing offer or source error is never reported as zero Amazon reviews.
 
 ## Quick start
 
-Collect one ASIN:
+Collect one ASIN after verifying that the Woot offer page contains that exact ASIN:
 
 ```bash
-python scripts/amazon_review_scraper.py B0XXXXXXXX --mode max \
+python scripts/amazon_review_scraper.py B0XXXXXXXX \
+  --woot-offer-url https://home.woot.com/offers/example-product --mode full \
   --output output/B0XXXXXXXX/reviews.json
 ```
 
-Collect a batch with checkpoints:
+Collect a batch with checkpoints. `woot_offer_map.json` maps each ASIN to its verified current Woot offer URL:
+
+```json
+{"B0AAA00001":"https://home.woot.com/offers/example-product"}
+```
+
+Replace the example values with an actual ASIN and the exact matching current offer page before running. The map is an input file, not an automatic ASIN discovery service.
 
 ```bash
-python scripts/batch_review_collect.py B0AAA... B0BBB... \
-  --output-dir output/batch --mode max --resume
+python scripts/batch_review_collect.py B0AAA00001 B0BBB00002 \
+  --woot-offer-map woot_offer_map.json \
+  --output-dir output/batch --mode full --resume
 ```
 
 Build and validate an evidence workbook:

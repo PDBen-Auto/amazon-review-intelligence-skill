@@ -28,6 +28,7 @@ jobs:
           python -m compileall -q scripts tests examples/synthetic-demo
           python tests/test_skill_structure.py
           python tests/test_export_reviews.py
+          python tests/test_woot_endpoint.py
           python tests/test_local_json_receiver.py
           python tests/test_synthetic_demo.py
           python tests/test_install_smoke.py

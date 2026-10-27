@@ -23,7 +23,7 @@ The workflow relies on the bundled Python collectors and validators, public revi
 | Python 3.10+ | Yes for bundled scripts | Run collection, merge, export, and validation scripts | `python --version` | Provide manual instructions and mark script validation as not run |
 | `openpyxl` | Required for XLSX output | Build and reopen Excel files | `python -c "import openpyxl"` | Deliver JSON/CSV/HTML only or install in an isolated work environment |
 | Pillow | Optional for embedded review images | Resize and embed downloaded images in batch workbooks | `python -c "from PIL import Image"` | Keep image URLs and report zero successfully embedded images |
-| Amazon US public review endpoint | Optional, primary for US | Interface-first written-review collection | Run one bounded probe and inspect schema | Use browser/manual fallback or supplied files; never interpret zero as no reviews |
+| Woot product page and review endpoint | Optional, US only | Match an active Woot offer to the exact ASIN, then collect written reviews | Verify the offer page's `Asin` and `offerId`; run one bounded review probe | Mark Woot mapping missing or failed, then use an authorized connector or Amazon browser fallback; never interpret zero as no reviews |
 | Marketplace connector | Optional, required for non-US automated collection | Collect supported non-US review records | Inspect the actual tool schema before calling | Use the requested marketplace browser fallback or stop with a coverage gap |
 | Browser/computer-use tool | Optional fallback | Capture visible review pages, media, and listing metadata | Verify browser capability and page access | Ask the user to open the exact page when navigation is blocked |
 | Translation/analysis capability | Required for Chinese insight report | Produce summary, translation, primary issue, and need themes | Check model availability; preserve original text | Deliver raw data with an explicit “semantic analysis not run” status |
@@ -37,7 +37,7 @@ Never claim a connector, marketplace, API, or browser capability exists without 
 | --- | --- | --- | --- | --- |
 | `targets` | Required for collection | One or more ASINs, product URLs, or review URLs; extract 10-character ASINs from `/dp/`, `/gp/product/`, and `/product-reviews/` | Deduplicate; ask only when multiple products cannot be separated | May contain private SKUs or customer links |
 | `marketplace` | Required for automated collection | Domain or explicit country/region; infer from URL before asking | Do not silently use US tools for a non-US market | Commercial scope |
-| `collection_mode` | Optional | `basic`, `full`, `max`, recent-page, or user-defined star/date/count filter | Default to `max` for US and record the choice | None |
+| `collection_mode` | Optional | `basic`, `full`, `max`, recent-page, or user-defined star/date/count filter | Default to `full` for matched Woot US offers; use `max` when the small extra coverage warrants the requests, and record the choice | None |
 | `source_files` | Conditional | JSON, CSV, XLSX, HTML, or prior delivery folders for analysis-only mode | Validate schema; preserve unsupported fields and report gaps | May contain personal data |
 | `analysis_scope` | Optional | Positive/negative split, compatibility, quality, installation, use case, or open sweep | Default to 1-3 stars negative, 4-5 stars positive, unknown separately | Product decision context |
 | `output_request` | Optional | Batch workbook, lean single-sheet workbook, CSV, HTML, JSON, VOC snapshot, or evidence bundle | Default to canonical JSON + batch workbook + HTML when collection and analysis are requested | Destination may be external; require authorization before writing there |
@@ -64,7 +64,7 @@ Success means every requested ASIN has a status, written-review counts are kept 
 1. Parse and deduplicate ASINs. Accept any valid 10-character ASIN, not only values starting with `B0`.
 2. Infer marketplace from the URL, user request, or thread context. Ask only when it cannot be inferred safely.
 3. Decide whether the user wants collection, analysis-only, or both. Do not scrape when complete review files were supplied and analysis is the only request.
-4. For Amazon US, run interface collection in `max` mode first. For other marketplaces, use the available connector or requested marketplace browser fallback.
+4. For Amazon US, locate a Woot `/offers/` page if available and verify that its embedded `Asin` exactly equals the requested ASIN. Extract the live offer ID and subdomain; run a bounded health probe, then `full` by default for broader collection. Use `max` when recent-sort coverage is specifically useful. Woot is a current-offer subset, so an unmatched ASIN is a source-coverage gap. For other marketplaces, use the available connector or requested marketplace browser fallback.
 5. Check every ASIN result. Treat zero interface reviews as inconclusive when Amazon shows ratings/reviews.
 6. Use browser/manual fallback only for zero, obviously incomplete, or explicitly recent-page results. Read [references/browser-fallback.md](references/browser-fallback.md) before browser work.
 7. Merge and deduplicate all captures into the canonical schema. Prefer the richer record and enrich it with browser-only fields.
@@ -78,17 +78,20 @@ Read [references/strategy.md](references/strategy.md) when deciding source order
 
 Use the bundled scripts instead of rewriting collection logic.
 
-Single ASIN:
+Single ASIN after exact Woot offer matching:
 
 ```bash
-python scripts/amazon_review_scraper.py B0XXXXXXXX --mode max -o output/B0XXXXXXXX/B0XXXXXXXX_woot_max.json
+python scripts/amazon_review_scraper.py B0XXXXXXXX --woot-offer-url https://home.woot.com/offers/example-product --mode basic -o work/B0XXXXXXXX_woot_basic.json
+python scripts/amazon_review_scraper.py B0XXXXXXXX --woot-offer-url https://home.woot.com/offers/example-product --mode full -o output/B0XXXXXXXX/B0XXXXXXXX_woot_full.json
 ```
 
-Batch with checkpointing:
+Batch with checkpointing. The JSON map contains exact ASIN-to-Woot-offer-URL pairs discovered and verified before collection:
 
 ```bash
-python scripts/batch_review_collect.py B0AAA... B0BBB... --output-dir output/batch --mode max --resume
+python scripts/batch_review_collect.py B0AAA00001 B0BBB00002 --woot-offer-map work/woot_offer_map.json --output-dir output/batch --mode full --resume
 ```
+
+The live review request is `https://{offer-host}/review/Reviews/{ASIN}?offerid={offerId}&filter=...&isVerified=false&sort=...&page=1`, followed by `pagingNext` cursors. Do not invent an offer ID or reuse one from another ASIN. A 404, invalid JSON, or missing `Reviews` array is a source failure, not an empty review set. Preserve successfully fetched pages with `partial` and error details when a later page fails; do not promote this to a complete capture. A valid empty response is `empty_unverified` until checked against the product page. Read [references/collection.md](references/collection.md) for matching and HTTP details.
 
 When a second connector is available, save its JSON and merge:
 
