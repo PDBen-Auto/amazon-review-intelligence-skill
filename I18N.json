@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "locales": [
+    "zh-CN",
+    "en",
+    "ja",
+    "ko",
+    "de",
+    "fr",
+    "es",
+    "pt"
+  ],
+  "scope": "localized-operating-guides-and-requested-assistant-output",
+  "referenceTranslations": "partial; technical references and example UIs retain original language",
+  "nativeSpeakerReview": false,
+  "baseCommit": "e38c27dbf60f4b51b6b9998bb48bcf26e91beeed",
+  "repository": "PDBen-Auto/amazon-review-intelligence-skill",
+  "skills": [
+    {
+      "name": "amazon-review-scraper",
+      "path": "SKILL.md",
+      "directory": ".",
+      "sourceSha256": "162481bffab9de061325780bef0e68dd7b2b5471ad35f0d0bceb73383867e71f",
+      "guides": {
+        "zh-CN": "references/i18n/zh-CN.md",
+        "en": "references/i18n/en.md",
+        "ja": "references/i18n/ja.md",
+        "ko": "references/i18n/ko.md",
+        "de": "references/i18n/de.md",
+        "fr": "references/i18n/fr.md",
+        "es": "references/i18n/es.md",
+        "pt": "references/i18n/pt.md"
+      },
+      "updatedSha256": "daaa0ebffb2afa8f9bb4ed61c897e73b18a3d78fcbd9e3601bb7ac2d6d935c4f"
+    }
+  ],
+  "documents": {
+    "README.de.md": {
+      "sha256": "b43ce939e217e9e9faa8bb46de6dcbf6b8e22523af848d0f5b99ff2287e68928",
+      "size": 3131
+    },
+    "README.en.md": {
+      "sha256": "b2e7115863fd68527bbabece3336e2dcc7cf6065a5c97a0ca1a8795b4f897bc2",
+      "size": 3163
+    },
+    "README.es.md": {
+      "sha256": "0295d6d3faf97f917d57de897ef93a4ce4b02d5932c9593f864b302ee115f7c8",
+      "size": 3051
+    },
+    "README.fr.md": {
+      "sha256": "2020cf6a93c641b24f2196c8fa751f41ba5f81d84db25972a1ae5b4617c111ae",
+      "size": 3185
+    },
+    "README.ja.md": {
+      "sha256": "3ef9e73113880585e3b89630def5a59aca36b29eb47a4693d53a2a0b381d479a",
+      "size": 3135
+    },
+    "README.ko.md": {
+      "sha256": "aa8cc3a480c7111d4946ce3715061b0b03d0aea91464c5b2cf3e02a1c8f835f7",
+      "size": 3138
+    },
+    "README.md": {
+      "sha256": "bae1aacff7abbb24a003754ecaddaf5619183ab8feedf2b25352bac7015d323f",
+      "size": 13216
+    },
+    "README.pt.md": {
+      "sha256": "e9ff1d3440f550cd3cff5953543e1741fae58b10ebedbd9bde02bba235bfabf7",
+      "size": 3045
+    },
+    "README.zh-CN.md": {
+      "sha256": "d4529e5ad12a11d0d148e55fba977371a35ba2ee9168f4a1567aa4eb99d707d6",
+      "size": 9755
+    },
+    "SKILL.md": {
+      "sha256": "daaa0ebffb2afa8f9bb4ed61c897e73b18a3d78fcbd9e3601bb7ac2d6d935c4f",
+      "size": 19607
+    },
+    "references/i18n/de.md": {
+      "sha256": "d68ce09ea98fc05280ebdfe6e15bd21d321ab79277ae86dc13fa342800ea8ddc",
+      "size": 3032
+    },
+    "references/i18n/en.md": {
+      "sha256": "c8e9f92e9e3669f8b29d6db9b5dcc493a902d9d7ab9892c6f487e24c05f4841c",
+      "size": 3094
+    },
+    "references/i18n/es.md": {
+      "sha256": "4621f194adeff8f714b6b22bd31c8a54dd58407489efa58f48f2f134b8d38f6d",
+      "size": 2930
+    },
+    "references/i18n/fr.md": {
+      "sha256": "812a4b08d8fd50ceebed1f69e71b42286a969ef40715cc5fd43f57d6c47b7a62",
+      "size": 3080
+    },
+    "references/i18n/ja.md": {
+      "sha256": "02dd0a8a23f9e04ae0f1ed5b9e323012a9da53de63610cad818beb2033b253b6",
+      "size": 3019
+    },
+    "references/i18n/ko.md": {
+      "sha256": "f1d4c7e9d86285e1f0bdd323e09374ec5f7c2b56ae7290a0049e869519668df4",
+      "size": 3047
+    },
+    "references/i18n/pt.md": {
+      "sha256": "92b8c12c39ef8be47c569a43e4374f3b522420bfcb43f12b23f6061ebbca0dbc",
+      "size": 2957
+    },
+    "references/i18n/zh-CN.md": {
+      "sha256": "83efe1abfe17d28816d43b5f81631d292984117c811de381a1e6b03a78db52f3",
+      "size": 2463
+    }
+  }
+}
